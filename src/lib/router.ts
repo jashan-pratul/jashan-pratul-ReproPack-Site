@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export type RoutePath = "/" | "/support";
+export type RoutePath = "/" | "/support" | "/privacy";
 
 export const ROUTE_EVENT = "repropack:routechange";
 
@@ -15,6 +15,7 @@ export interface ParsedTarget {
 export function normalizeRoute(pathname: string): RoutePath {
   const cleaned = pathname.trim().replace(/\/+$/, "") || "/";
   if (cleaned === "/support") return "/support";
+  if (cleaned === "/privacy") return "/privacy";
   return "/";
 }
 

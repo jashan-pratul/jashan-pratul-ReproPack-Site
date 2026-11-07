@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { CommandPalette, ShortcutsModal } from "./components/modals/Overlays";
+import { PrivacyPage } from "./components/pages/PrivacyPage";
 import { SupportPage } from "./components/pages/SupportPage";
 import { Faq } from "./components/sections/Faq";
 import { Features } from "./components/sections/Features";
@@ -25,12 +26,17 @@ function SiteShell() {
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
 
   useEffect(() => {
-    document.title =
-      route === "/support" ? `Support — ${SITE_CONFIG.name}` : `${SITE_CONFIG.name} — ${SITE_CONFIG.tagline}`;
+    if (route === "/support") {
+      document.title = `Support — ${SITE_CONFIG.name}`;
+    } else if (route === "/privacy") {
+      document.title = `Privacy Policy — ${SITE_CONFIG.name}`;
+    } else {
+      document.title = `${SITE_CONFIG.name} — ${SITE_CONFIG.tagline}`;
+    }
   }, [route]);
 
   useEffect(() => {
-    if (route !== "/") return;
+    if (route !== "/" && route !== "/privacy") return;
 
     const alignToHash = () => {
       if (!window.location.hash) return;
@@ -44,7 +50,8 @@ function SiteShell() {
     const rafId = window.requestAnimationFrame(alignToHash);
 
     const onPopState = () => {
-      if (normalizeRoute(window.location.pathname) !== "/") return;
+      const current = normalizeRoute(window.location.pathname);
+      if (current !== "/" && current !== "/privacy") return;
       const id = window.location.hash.slice(1);
       if (!id || id === "top") {
         window.scrollTo({ top: 0, behavior: "instant" });
@@ -119,6 +126,8 @@ function SiteShell() {
       <main id="main-content">
         {route === "/support" ? (
           <SupportPage />
+        ) : route === "/privacy" ? (
+          <PrivacyPage />
         ) : (
           <>
             <Hero />

@@ -307,7 +307,7 @@ export function Header({ onOpenPalette }: { onOpenPalette: () => void }) {
   const [scrolled, setScrolled] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   const activeSection = useActiveSection(route);
-  const activeNavId = route === "/support" ? "support" : activeSection;
+  const activeNavId = route === "/support" ? "support" : route === "/privacy" ? "privacy" : activeSection;
   const indicator = useUnderlineIndicator(navRef, activeNavId);
 
   useEffect(() => {
@@ -342,10 +342,13 @@ export function Header({ onOpenPalette }: { onOpenPalette: () => void }) {
           aria-label="Primary"
         >
           {NAV_ITEMS.map((n) => {
-            const isSupportItem = n.id === "support";
-            const href = isSupportItem ? LINKS.supportPage : `#${n.id}`;
+            const dedicatedHref =
+              n.id === "support" ? LINKS.supportPage : n.id === "privacy" ? LINKS.privacyPage : null;
+            const href = dedicatedHref ?? `#${n.id}`;
             const isCurrent = activeNavId === n.id;
-            const ariaCurrent = isCurrent ? (isSupportItem && route === "/support" ? "page" : "location") : undefined;
+            const isDedicatedRoute =
+              (n.id === "support" && route === "/support") || (n.id === "privacy" && route === "/privacy");
+            const ariaCurrent = isCurrent ? (isDedicatedRoute ? "page" : "location") : undefined;
             return (
               <AppLink
                 key={n.id}
@@ -412,10 +415,13 @@ export function Header({ onOpenPalette }: { onOpenPalette: () => void }) {
       {menuOpen && (
         <nav id="mobile-nav" className="mobile-nav" aria-label="Mobile">
           {NAV_ITEMS.map((n) => {
-            const isSupportItem = n.id === "support";
-            const href = isSupportItem ? LINKS.supportPage : `#${n.id}`;
+            const dedicatedHref =
+              n.id === "support" ? LINKS.supportPage : n.id === "privacy" ? LINKS.privacyPage : null;
+            const href = dedicatedHref ?? `#${n.id}`;
             const isCurrent = activeNavId === n.id;
-            const ariaCurrent = isCurrent ? (isSupportItem && route === "/support" ? "page" : "location") : undefined;
+            const isDedicatedRoute =
+              (n.id === "support" && route === "/support") || (n.id === "privacy" && route === "/privacy");
+            const ariaCurrent = isCurrent ? (isDedicatedRoute ? "page" : "location") : undefined;
             return (
               <AppLink
                 key={n.id}

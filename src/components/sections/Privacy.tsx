@@ -1,6 +1,6 @@
-import { SITE_CONFIG } from "../../config/site";
-import { IconAlert, IconDatabase, IconExternal, IconLock, IconRadio, IconShield } from "../ui/Icons";
-import { Section } from "../ui/Primitives";
+import { LINKS } from "../../config/links";
+import { IconAlert, IconArrowRight, IconDatabase, IconExternal, IconLock, IconRadio, IconShield } from "../ui/Icons";
+import { AppLink, Section } from "../ui/Primitives";
 
 const CARDS = [
   {
@@ -14,21 +14,21 @@ const CARDS = [
     code: "P-02",
     icon: IconRadio,
     title: "Explicit Scope Only",
-    body: "Installing the extension does not turn on global tab monitoring or passive console/network scraping. Diagnostic events are recorded only from supported integrations or explicit manual instrumentation.",
+    body: "Installing the extension does not turn on global tab monitoring or passive console/network scraping. Diagnostic events are recorded only from supported integrations or explicit runtime instrumentation.",
     meta: "capture_mode: opt-in",
   },
   {
     code: "P-03",
     icon: IconDatabase,
     title: "Ephemeral Session Lifecycle",
-    body: `Events live in a session-scoped buffer capped at ${SITE_CONFIG.bufferMaxEvents} entries with automatic FIFO eviction. You can clear the buffer at any moment, and nothing is exported unless you explicitly copy or download it.`,
-    meta: `max_retention: ${SITE_CONFIG.bufferMaxEvents} events`,
+    body: "In the Chrome extension, events live in an in-memory ring buffer and chrome.storage.session capped at 1,000 entries with FIFO eviction and 24-hour expiration. Nothing is exported unless you explicitly copy or download it.",
+    meta: "max_retention: 1,000 events · 24h",
   },
   {
     code: "P-04",
     icon: IconAlert,
     title: "Honest Redaction Boundaries",
-    body: "Heuristic redaction masks common patterns (sensitive key names, JWTs, bearer tokens, emails, Luhn-valid card numbers), but pattern matching is best-effort. It cannot guarantee 100% PII removal or compliance.",
+    body: "Heuristic redaction masks common patterns (sensitive key names, Bearer tokens, JWTs, AWS/GitHub/Slack tokens, emails, and URL auth parameters), but pattern matching is best-effort and cannot guarantee complete PII or secret removal.",
     meta: "redaction: best-effort heuristic",
   },
 ] as const;
@@ -42,11 +42,11 @@ export function Privacy() {
       title="Technical boundaries, documented honestly."
       lede="No vague assurances or invented compliance badges — just clear architectural constraints you can verify in the open-source repository."
       aside={
-        <a className="btn btn--secondary btn--sm" href={SITE_CONFIG.privacyPolicyUrl} target="_blank" rel="noopener noreferrer">
+        <AppLink className="btn btn--secondary btn--sm" href={LINKS.privacyPage}>
           <IconShield size={14} />
-          Read PRIVACY.md
-          <IconExternal size={12} />
-        </a>
+          Privacy Policy
+          <IconArrowRight size={12} />
+        </AppLink>
       }
     >
       <div className="privacy-grid">
@@ -67,15 +67,21 @@ export function Privacy() {
 
       <div className="privacy-policy-bar card">
         <div className="privacy-policy-bar__copy">
-          <strong>Full privacy documentation</strong>
+          <strong>Full privacy policy &amp; Chrome Web Store disclosures</strong>
           <p className="text-secondary">
-            Review data handling details, browser storage scope, and heuristic redaction disclosures in the repository privacy policy.
+            Review complete details on diagnostic data handled, session storage limits, heuristic redaction boundaries, export, and deletion.
           </p>
         </div>
-        <a className="btn btn--secondary" href={SITE_CONFIG.privacyPolicyUrl} target="_blank" rel="noopener noreferrer">
-          View Privacy Policy
-          <IconExternal size={14} />
-        </a>
+        <div className="privacy-policy-bar__actions">
+          <AppLink className="btn btn--secondary" href={LINKS.privacyPage}>
+            Read Privacy Policy
+            <IconArrowRight size={14} />
+          </AppLink>
+          <a className="btn btn--ghost" href={LINKS.privacy} target="_blank" rel="noopener noreferrer">
+            PRIVACY.md
+            <IconExternal size={13} />
+          </a>
+        </div>
       </div>
     </Section>
   );

@@ -46,7 +46,8 @@ const ITEMS: FaqItem[] = [
     question: "How does bounded session retention protect browser memory?",
     answer: (
       <>
-        Each recording session uses a bounded ring buffer capped at <code>{SITE_CONFIG.bufferMaxEvents}</code> events. Once full, the oldest
+        In the Chrome extension, each session uses an in-memory circular ring buffer (mirrored in <code>chrome.storage.session</code>) capped at{" "}
+        <code>1,000</code> events with a <code>24-hour</code> expiration window and <code>64 KiB</code> per-event limit. Once full, the oldest
         events roll off automatically first (FIFO) so long debugging sessions never accumulate unbounded memory.
       </>
     ),
@@ -56,9 +57,10 @@ const ITEMS: FaqItem[] = [
     question: "Does heuristic redaction guarantee 100% detection of PII and secrets?",
     answer: (
       <>
-        No. Heuristic redaction is pattern-based and best-effort — masking common shapes such as sensitive key names, JWTs, bearer tokens, known
-        API key prefixes, emails, Luhn-valid card numbers, E.164 phone numbers, and IPv4 addresses. It cannot detect free-form names, custom
-        token formats, or encoded values, and is not a security or compliance guarantee. Always review JSON before sharing.
+        No. Heuristic redaction is pattern-based and best-effort — masking sensitive object/query keys, Bearer tokens, JWTs, AWS access keys,
+        GitHub and Slack tokens, URL Basic Auth credentials, and email addresses. It cannot detect free-form names, phone numbers, IP addresses,
+        payment card numbers, custom token formats, or encoded values, and is not a security or compliance guarantee. Always review JSON before
+        sharing.
       </>
     ),
   },
@@ -118,11 +120,15 @@ const ITEMS: FaqItem[] = [
         <a className="text-link" href={LINKS.github} target="_blank" rel="noopener noreferrer">
           github.com/jashan-pratul/ReproPack
         </a>
-        , privacy disclosures are in{" "}
+        , full privacy disclosures are on our{" "}
+        <AppLink className="text-link" href={LINKS.privacyPage}>
+          Privacy Policy
+        </AppLink>{" "}
+        page (and{" "}
         <a className="text-link" href={LINKS.privacy} target="_blank" rel="noopener noreferrer">
           PRIVACY.md
         </a>
-        , bug reports are tracked via{" "}
+        ), bug reports are tracked via{" "}
         <a className="text-link" href={LINKS.support} target="_blank" rel="noopener noreferrer">
           GitHub Issues
         </a>

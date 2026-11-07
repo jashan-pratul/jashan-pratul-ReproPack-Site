@@ -101,12 +101,14 @@ describe("buildExport", () => {
   });
 });
 
-describe("support configuration & routing", () => {
-  it("exposes official support email, mailto link, support page path, GitHub URL, and privacy policy URL", () => {
+describe("support & privacy configuration & routing", () => {
+  it("exposes official support email, mailto link, support & privacy page paths, GitHub URL, and privacy policy URL", () => {
     expect(SITE_CONFIG.supportEmail).toBe("repropacksupport@gmail.com");
+    expect(SITE_CONFIG.privacyPagePath).toBe("/privacy");
     expect(LINKS.supportEmail).toBe("repropacksupport@gmail.com");
     expect(LINKS.supportMailto).toBe("mailto:repropacksupport@gmail.com");
     expect(LINKS.supportPage).toBe("/support");
+    expect(LINKS.privacyPage).toBe("/privacy");
     expect(LINKS.github).toBe("https://github.com/jashan-pratul/ReproPack");
     expect(LINKS.privacy).toBe("https://github.com/jashan-pratul/ReproPack/blob/main/PRIVACY.md");
   });
@@ -115,10 +117,15 @@ describe("support configuration & routing", () => {
     expect(normalizeRoute("/")).toBe("/");
     expect(normalizeRoute("/support")).toBe("/support");
     expect(normalizeRoute("/support/")).toBe("/support");
+    expect(normalizeRoute("/privacy")).toBe("/privacy");
+    expect(normalizeRoute("/privacy/")).toBe("/privacy");
     expect(normalizeRoute("/unknown")).toBe("/");
 
     expect(parseInternalHref("/support")).toEqual({ path: "/support", hash: "" });
     expect(parseInternalHref("/support/")).toEqual({ path: "/support", hash: "" });
+    expect(parseInternalHref("/privacy")).toEqual({ path: "/privacy", hash: "" });
+    expect(parseInternalHref("/privacy/")).toEqual({ path: "/privacy", hash: "" });
+    expect(parseInternalHref("/privacy#redaction")).toEqual({ path: "/privacy", hash: "#redaction" });
     expect(parseInternalHref("#install")).toEqual({ path: "/", hash: "#install" });
     expect(parseInternalHref("/#privacy")).toEqual({ path: "/", hash: "#privacy" });
     expect(parseInternalHref("/")).toEqual({ path: "/", hash: "" });

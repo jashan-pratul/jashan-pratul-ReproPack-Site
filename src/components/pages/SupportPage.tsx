@@ -158,13 +158,13 @@ export function SupportPage() {
             </div>
 
             <div className="support-privacy__actions">
-              <a className="btn btn--secondary" href={LINKS.privacy} target="_blank" rel="noopener noreferrer">
+              <AppLink className="btn btn--secondary" href={LINKS.privacyPage}>
                 Read Privacy Policy
+              </AppLink>
+              <a className="btn btn--ghost" href={LINKS.privacy} target="_blank" rel="noopener noreferrer">
+                PRIVACY.md
                 <IconExternal size={13} />
               </a>
-              <AppLink className="btn btn--ghost" href="/#privacy">
-                Privacy Architecture
-              </AppLink>
             </div>
           </aside>
         </div>

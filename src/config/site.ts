@@ -32,6 +32,7 @@ export const SITE_CONFIG = {
   sourceInstallLabel: "Install ReproPack",
   docsUrl: "https://github.com/jashan-pratul/ReproPack#readme",
   privacyPolicyUrl: "https://github.com/jashan-pratul/ReproPack/blob/main/PRIVACY.md",
+  privacyPagePath: "/privacy",
   supportUrl: "https://github.com/jashan-pratul/ReproPack/issues",
   supportEmail: "repropacksupport@gmail.com",
   supportPagePath: "/support",

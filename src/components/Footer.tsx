@@ -48,7 +48,17 @@ export function Footer({ onOpenShortcuts }: { onOpenShortcuts: () => void }) {
             <ul>
               {NAV_ITEMS.map((item) => (
                 <li key={item.id}>
-                  <AppLink href={item.id === "support" ? LINKS.supportPage : `#${item.id}`}>{item.label}</AppLink>
+                  <AppLink
+                    href={
+                      item.id === "support"
+                        ? LINKS.supportPage
+                        : item.id === "privacy"
+                          ? LINKS.privacyPage
+                          : `#${item.id}`
+                    }
+                  >
+                    {item.label}
+                  </AppLink>
                 </li>
               ))}
               <li>
@@ -62,6 +72,9 @@ export function Footer({ onOpenShortcuts }: { onOpenShortcuts: () => void }) {
           <nav className="footer__col" aria-label="Support and external resources">
             <h3 className="footer__heading mono">Resources &amp; Support</h3>
             <ul>
+              <li>
+                <AppLink href={LINKS.privacyPage}>Privacy Policy</AppLink>
+              </li>
               <li>
                 <AppLink href={LINKS.supportPage}>Support Page</AppLink>
               </li>
@@ -86,7 +99,7 @@ export function Footer({ onOpenShortcuts }: { onOpenShortcuts: () => void }) {
               </li>
               <li>
                 <a href={LINKS.privacy} target="_blank" rel="noopener noreferrer">
-                  Privacy Policy (PRIVACY.md)
+                  Repository PRIVACY.md
                   <IconExternal size={11} />
                 </a>
               </li>
@@ -105,6 +118,12 @@ export function Footer({ onOpenShortcuts }: { onOpenShortcuts: () => void }) {
             {SITE_CONFIG.name} :: Local-first developer diagnostics · Explicit instrumentation only
           </span>
           <div className="footer__bottom-links">
+            <AppLink className="text-link" href={LINKS.privacyPage}>
+              Privacy Policy
+            </AppLink>
+            <span className="footer__bottom-sep" aria-hidden="true">
+              ·
+            </span>
             <AppLink className="text-link" href={LINKS.supportPage}>
               Support
             </AppLink>

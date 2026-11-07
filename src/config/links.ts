@@ -8,6 +8,7 @@ export const GITHUB_URL = SITE_CONFIG.githubUrl;
 export const CHROME_WEB_STORE_URL = SITE_CONFIG.chromeWebStoreUrl;
 export const DOCS_URL = SITE_CONFIG.docsUrl;
 export const PRIVACY_POLICY_URL = SITE_CONFIG.privacyPolicyUrl;
+export const PRIVACY_PAGE_PATH = SITE_CONFIG.privacyPagePath;
 export const SUPPORT_URL = SITE_CONFIG.supportUrl;
 export const SUPPORT_EMAIL = SITE_CONFIG.supportEmail;
 export const SUPPORT_MAILTO = `mailto:${SUPPORT_EMAIL}`;
@@ -26,6 +27,7 @@ export const LINKS = {
   chromeWebStore: CHROME_WEB_STORE_URL,
   docs: DOCS_URL,
   privacy: PRIVACY_POLICY_URL,
+  privacyPage: PRIVACY_PAGE_PATH,
   support: SUPPORT_URL,
   supportEmail: SUPPORT_EMAIL,
   supportMailto: SUPPORT_MAILTO,

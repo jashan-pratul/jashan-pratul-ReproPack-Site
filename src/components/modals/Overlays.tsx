@@ -44,7 +44,9 @@ export function CommandPalette({
 
   const commands = useMemo<CommandItem[]>(() => {
     const jumpTo = (id: string) => {
-      navigate(id === "support" ? LINKS.supportPage : `#${id}`);
+      if (id === "support") navigate(LINKS.supportPage);
+      else if (id === "privacy") navigate(LINKS.privacyPage);
+      else navigate(`#${id}`);
     };
     const openUrl = (url: string) => {
       window.open(url, "_blank", "noopener,noreferrer");
@@ -119,8 +121,13 @@ export function CommandPalette({
         (n): CommandItem => ({
           id: `nav-${n.id}`,
           group: "Navigate",
-          label: n.id === "support" ? "Open Support Page" : `Go to ${n.label}`,
-          hint: n.id === "support" ? LINKS.supportPage : `#${n.id}`,
+          label:
+            n.id === "support"
+              ? "Open Support Page"
+              : n.id === "privacy"
+                ? "Open Privacy Policy"
+                : `Go to ${n.label}`,
+          hint: n.id === "support" ? LINKS.supportPage : n.id === "privacy" ? LINKS.privacyPage : `#${n.id}`,
           run: () => jumpTo(n.id),
         }),
       ),
@@ -141,7 +148,7 @@ export function CommandPalette({
       {
         id: "ext-privacy",
         group: "External Links",
-        label: "Open Privacy Policy (PRIVACY.md)",
+        label: "Open Repository PRIVACY.md",
         hint: "GitHub",
         run: () => openUrl(LINKS.privacy),
       },
