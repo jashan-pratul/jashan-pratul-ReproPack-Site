@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { CommandPalette, ShortcutsModal } from "./components/modals/Overlays";
+import { SupportPage } from "./components/pages/SupportPage";
 import { Faq } from "./components/sections/Faq";
 import { Features } from "./components/sections/Features";
 import { Hero } from "./components/sections/Hero";
@@ -13,12 +14,28 @@ import { RedactionLab } from "./components/sections/RedactionLab";
 import { Scope } from "./components/sections/Scope";
 import { Support } from "./components/sections/Support";
 import { ToastProvider } from "./components/ui/Toast";
+import { SITE_CONFIG } from "./config/site";
 import { hasModifier, isTypingTarget } from "./lib/keyboard";
+import { useRoute } from "./lib/router";
 import { PlaygroundProvider } from "./state/playground";
 
 function SiteShell() {
+  const route = useRoute();
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
+
+  useEffect(() => {
+    document.title =
+      route === "/support" ? `Support — ${SITE_CONFIG.name}` : `${SITE_CONFIG.name} — ${SITE_CONFIG.tagline}`;
+  }, [route]);
+
+  useEffect(() => {
+    if (route !== "/" || !window.location.hash) return;
+    const id = window.location.hash.slice(1);
+    if (!id || id === "top") return;
+    const el = document.getElementById(id);
+    el?.scrollIntoView({ behavior: "auto", block: "start" });
+  }, [route]);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -77,16 +94,22 @@ function SiteShell() {
       <Header onOpenPalette={() => setPaletteOpen(true)} />
 
       <main id="main-content">
-        <Hero />
-        <Scope />
-        <PlaygroundSection onOpenShortcuts={() => setShortcutsOpen(true)} />
-        <Features />
-        <HowItWorks />
-        <RedactionLab />
-        <Privacy />
-        <Install />
-        <Faq />
-        <Support />
+        {route === "/support" ? (
+          <SupportPage />
+        ) : (
+          <>
+            <Hero />
+            <Scope />
+            <PlaygroundSection onOpenShortcuts={() => setShortcutsOpen(true)} />
+            <Features />
+            <HowItWorks />
+            <RedactionLab />
+            <Privacy />
+            <Install />
+            <Faq />
+            <Support />
+          </>
+        )}
       </main>
 
       <Footer onOpenShortcuts={() => setShortcutsOpen(true)} />

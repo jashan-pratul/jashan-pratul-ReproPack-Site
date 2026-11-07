@@ -1,6 +1,7 @@
 import { isStoreLive, NAV_ITEMS, SITE_CONFIG } from "../config/site";
 import { LINKS } from "../config/links";
 import { IconCommit, IconExternal, IconGithub, IconMail } from "./ui/Icons";
+import { AppLink } from "./ui/Primitives";
 
 export function Footer({ onOpenShortcuts }: { onOpenShortcuts: () => void }) {
   const storeLive = isStoreLive();
@@ -10,12 +11,12 @@ export function Footer({ onOpenShortcuts }: { onOpenShortcuts: () => void }) {
       <div className="container footer__container">
         <div className="footer__grid">
           <div className="footer__brand-col">
-            <a href="#top" className="footer__brand" aria-label="ReproPack top of page">
+            <AppLink href="#top" className="footer__brand" aria-label="ReproPack home">
               <span className="wordmark">
                 <img src="/logo.png" alt="ReproPack" className="w-6 h-6 rounded-md opacity-90" />
                 <span>ReproPack</span>
               </span>
-            </a>
+            </AppLink>
             <p className="footer__tagline">{SITE_CONFIG.tagline}</p>
             <p className="footer__desc">
               Local-first browser diagnostic event recorder. Bounded {SITE_CONFIG.bufferMaxEvents}-event FIFO session buffer, best-effort
@@ -47,7 +48,7 @@ export function Footer({ onOpenShortcuts }: { onOpenShortcuts: () => void }) {
             <ul>
               {NAV_ITEMS.map((item) => (
                 <li key={item.id}>
-                  <a href={`#${item.id}`}>{item.label}</a>
+                  <AppLink href={item.id === "support" ? LINKS.supportPage : `#${item.id}`}>{item.label}</AppLink>
                 </li>
               ))}
               <li>
@@ -59,8 +60,11 @@ export function Footer({ onOpenShortcuts }: { onOpenShortcuts: () => void }) {
           </nav>
 
           <nav className="footer__col" aria-label="Support and external resources">
-            <h3 className="footer__heading mono">Resources & Support</h3>
+            <h3 className="footer__heading mono">Resources &amp; Support</h3>
             <ul>
+              <li>
+                <AppLink href={LINKS.supportPage}>Support Page</AppLink>
+              </li>
               <li>
                 <a href={LINKS.supportMailto} aria-label={`Contact support via email at ${LINKS.supportEmail}`}>
                   <IconMail size={13} />
@@ -101,6 +105,12 @@ export function Footer({ onOpenShortcuts }: { onOpenShortcuts: () => void }) {
             {SITE_CONFIG.name} :: Local-first developer diagnostics · Explicit instrumentation only
           </span>
           <div className="footer__bottom-links">
+            <AppLink className="text-link" href={LINKS.supportPage}>
+              Support
+            </AppLink>
+            <span className="footer__bottom-sep" aria-hidden="true">
+              ·
+            </span>
             <a className="text-link" href={LINKS.supportMailto} aria-label={`Support email ${LINKS.supportEmail}`}>
               {LINKS.supportEmail}
             </a>

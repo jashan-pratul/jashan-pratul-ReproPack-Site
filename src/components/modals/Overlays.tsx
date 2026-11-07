@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react"
 import { LINKS } from "../../config/links";
 import { NAV_ITEMS } from "../../config/site";
 import { SHORTCUTS } from "../../lib/keyboard";
+import { navigate } from "../../lib/router";
 import { usePlayground } from "../../state/playground";
 import {
   IconArrowRight,
@@ -43,7 +44,7 @@ export function CommandPalette({
 
   const commands = useMemo<CommandItem[]>(() => {
     const jumpTo = (id: string) => {
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      navigate(id === "support" ? LINKS.supportPage : `#${id}`);
     };
     const openUrl = (url: string) => {
       window.open(url, "_blank", "noopener,noreferrer");
@@ -118,8 +119,8 @@ export function CommandPalette({
         (n): CommandItem => ({
           id: `nav-${n.id}`,
           group: "Navigate",
-          label: `Go to ${n.label}`,
-          hint: `#${n.id}`,
+          label: n.id === "support" ? "Open Support Page" : `Go to ${n.label}`,
+          hint: n.id === "support" ? LINKS.supportPage : `#${n.id}`,
           run: () => jumpTo(n.id),
         }),
       ),

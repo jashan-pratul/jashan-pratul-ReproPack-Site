@@ -11,6 +11,7 @@ export const PRIVACY_POLICY_URL = SITE_CONFIG.privacyPolicyUrl;
 export const SUPPORT_URL = SITE_CONFIG.supportUrl;
 export const SUPPORT_EMAIL = SITE_CONFIG.supportEmail;
 export const SUPPORT_MAILTO = `mailto:${SUPPORT_EMAIL}`;
+export const SUPPORT_PAGE_PATH = SITE_CONFIG.supportPagePath;
 
 /** Derived repository links. */
 export const GITHUB_RELEASES_URL = `${GITHUB_URL}/releases`;
@@ -28,6 +29,7 @@ export const LINKS = {
   support: SUPPORT_URL,
   supportEmail: SUPPORT_EMAIL,
   supportMailto: SUPPORT_MAILTO,
+  supportPage: SUPPORT_PAGE_PATH,
   newIssue: GITHUB_NEW_ISSUE_URL,
   primaryInstall: PRIMARY_INSTALL_URL,
 } as const;

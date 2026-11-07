@@ -119,6 +119,12 @@ export const IconTrash = (p: IconProps) => (
   </Svg>
 );
 
+export const IconArrowLeft = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M19 12H5M11 6l-6 6 6 6" />
+  </Svg>
+);
+
 export const IconArrowRight = (p: IconProps) => (
   <Svg {...p}>
     <path d="M5 12h14M13 6l6 6-6 6" />

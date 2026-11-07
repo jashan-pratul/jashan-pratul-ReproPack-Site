@@ -2,13 +2,18 @@ import { useEffect, useState } from "react";
 import { LINKS } from "../config/links";
 import { NAV_ITEMS } from "../config/site";
 import { MOD_KEY_LABEL } from "../lib/keyboard";
+import { useRoute, type RoutePath } from "../lib/router";
 import { StoreButton } from "./StoreButton";
 import { IconCommand, IconCommit, IconGithub, IconMenu, IconX } from "./ui/Icons";
+import { AppLink } from "./ui/Primitives";
 
-function useActiveSection(): string | null {
+function useActiveSection(route: RoutePath): string | null {
   const [active, setActive] = useState<string | null>(null);
   useEffect(() => {
-    if (typeof IntersectionObserver === "undefined") return;
+    if (route !== "/" || typeof IntersectionObserver === "undefined") {
+      setActive(null);
+      return;
+    }
     const els = NAV_ITEMS.map((n) => document.getElementById(n.id)).filter((x): x is HTMLElement => Boolean(x));
     const io = new IntersectionObserver(
       (entries) => {
@@ -19,14 +24,15 @@ function useActiveSection(): string | null {
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
+  }, [route]);
   return active;
 }
 
 export function Header({ onOpenPalette }: { onOpenPalette: () => void }) {
+  const route = useRoute();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const active = useActiveSection();
+  const active = useActiveSection(route);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 4);
@@ -46,26 +52,30 @@ export function Header({ onOpenPalette }: { onOpenPalette: () => void }) {
     <header className={`header ${scrolled ? "is-scrolled" : ""}`}>
       <div className="container header__inner">
         <div className="header__left">
-          <a href="#top" className="header__brand" aria-label="ReproPack home">
+          <AppLink href="#top" className="header__brand" aria-label="ReproPack home">
             <span className="wordmark">
               <img src="/logo.png" alt="ReproPack" className="w-8 h-8 rounded-lg object-contain shadow-sm" />
               <span>ReproPack</span>
             </span>
-          </a>
+          </AppLink>
         </div>
 
         <nav className="header__nav" aria-label="Primary">
           {NAV_ITEMS.map((n) => {
-            const isCurrent = active === n.id;
+            const isSupportItem = n.id === "support";
+            const href = isSupportItem ? LINKS.supportPage : `#${n.id}`;
+            const isCurrent = isSupportItem
+              ? route === "/support" || (route === "/" && active === "support")
+              : route === "/" && active === n.id;
             return (
-              <a
+              <AppLink
                 key={n.id}
-                href={`#${n.id}`}
+                href={href}
                 className={isCurrent ? "is-active" : ""}
-                aria-current={isCurrent ? "true" : undefined}
+                aria-current={isSupportItem && route === "/support" ? "page" : isCurrent ? "true" : undefined}
               >
                 {n.label}
-              </a>
+              </AppLink>
             );
           })}
         </nav>
@@ -114,9 +124,9 @@ export function Header({ onOpenPalette }: { onOpenPalette: () => void }) {
       {menuOpen && (
         <nav id="mobile-nav" className="mobile-nav" aria-label="Mobile">
           {NAV_ITEMS.map((n) => (
-            <a key={n.id} href={`#${n.id}`} onClick={() => setMenuOpen(false)}>
+            <AppLink key={n.id} href={n.id === "support" ? LINKS.supportPage : `#${n.id}`} onClick={() => setMenuOpen(false)}>
               {n.label}
-            </a>
+            </AppLink>
           ))}
           <a href={LINKS.github} target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)}>
             GitHub Repository

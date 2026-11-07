@@ -34,6 +34,7 @@ export const SITE_CONFIG = {
   privacyPolicyUrl: "https://github.com/jashan-pratul/ReproPack/blob/main/PRIVACY.md",
   supportUrl: "https://github.com/jashan-pratul/ReproPack/issues",
   supportEmail: "repropacksupport@gmail.com",
+  supportPagePath: "/support",
   /** Maximum number of events retained in a single session buffer. */
   bufferMaxEvents: 500,
 } as const;

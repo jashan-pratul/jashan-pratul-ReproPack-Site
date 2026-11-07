@@ -2,7 +2,7 @@ import { useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { isStoreLive, SITE_CONFIG } from "../../config/site";
 import { LINKS } from "../../config/links";
 import { IconChevron } from "../ui/Icons";
-import { Section } from "../ui/Primitives";
+import { AppLink, Section } from "../ui/Primitives";
 
 interface FaqItem {
   id: string;
@@ -110,7 +110,11 @@ const ITEMS: FaqItem[] = [
     question: "Where can I inspect the source code, privacy policy, or contact support?",
     answer: (
       <>
-        Source code and documentation live at{" "}
+        Visit our{" "}
+        <AppLink className="text-link" href={LINKS.supportPage}>
+          Support page
+        </AppLink>{" "}
+        for full contact and issue-reporting guidance. Source code and documentation live at{" "}
         <a className="text-link" href={LINKS.github} target="_blank" rel="noopener noreferrer">
           github.com/jashan-pratul/ReproPack
         </a>

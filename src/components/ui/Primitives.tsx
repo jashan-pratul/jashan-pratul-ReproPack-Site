@@ -1,4 +1,32 @@
-import type { ReactNode } from "react";
+import type { AnchorHTMLAttributes, MouseEvent, ReactNode } from "react";
+import { navigate } from "../../lib/router";
+
+interface AppLinkProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> {
+  href: string;
+  children: ReactNode;
+}
+
+/**
+ * Internal navigation link that preserves native browser behavior for modified
+ * clicks (new tab / middle-click) while using History API routing on left-click.
+ */
+export function AppLink({ href, onClick, children, ...rest }: AppLinkProps) {
+  const resolvedHref = href.startsWith("#") ? (href === "#top" ? "/" : `/${href}`) : href;
+
+  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    onClick?.(e);
+    if (e.defaultPrevented) return;
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    navigate(href);
+  };
+
+  return (
+    <a href={resolvedHref} onClick={handleClick} {...rest}>
+      {children}
+    </a>
+  );
+}
 
 export function Logo({ className = "w-6 h-6 rounded-md object-contain" }: { className?: string }) {
   return <img src="/logo.png" alt="ReproPack" className={className} />;

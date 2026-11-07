@@ -6,6 +6,7 @@ import { redactValue } from "./redaction";
 import { buildExport, exportFilename } from "./export";
 import { SITE_CONFIG } from "../config/site";
 import { LINKS } from "../config/links";
+import { normalizeRoute, parseInternalHref } from "./router";
 
 describe("pushBounded", () => {
   it("appends while under capacity", () => {
@@ -100,10 +101,26 @@ describe("buildExport", () => {
   });
 });
 
-describe("support configuration", () => {
-  it("exposes official support email and mailto link", () => {
+describe("support configuration & routing", () => {
+  it("exposes official support email, mailto link, support page path, GitHub URL, and privacy policy URL", () => {
     expect(SITE_CONFIG.supportEmail).toBe("repropacksupport@gmail.com");
     expect(LINKS.supportEmail).toBe("repropacksupport@gmail.com");
     expect(LINKS.supportMailto).toBe("mailto:repropacksupport@gmail.com");
+    expect(LINKS.supportPage).toBe("/support");
+    expect(LINKS.github).toBe("https://github.com/jashan-pratul/ReproPack");
+    expect(LINKS.privacy).toBe("https://github.com/jashan-pratul/ReproPack/blob/main/PRIVACY.md");
+  });
+
+  it("normalizes pathnames and parses internal hrefs cleanly", () => {
+    expect(normalizeRoute("/")).toBe("/");
+    expect(normalizeRoute("/support")).toBe("/support");
+    expect(normalizeRoute("/support/")).toBe("/support");
+    expect(normalizeRoute("/unknown")).toBe("/");
+
+    expect(parseInternalHref("/support")).toEqual({ path: "/support", hash: "" });
+    expect(parseInternalHref("/support/")).toEqual({ path: "/support", hash: "" });
+    expect(parseInternalHref("#install")).toEqual({ path: "/", hash: "#install" });
+    expect(parseInternalHref("/#privacy")).toEqual({ path: "/", hash: "#privacy" });
+    expect(parseInternalHref("/")).toEqual({ path: "/", hash: "" });
   });
 });

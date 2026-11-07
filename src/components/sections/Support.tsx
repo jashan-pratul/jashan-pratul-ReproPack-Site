@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { LINKS } from "../../config/links";
 import { copyText } from "../../lib/clipboard";
-import { IconCheck, IconCopy, IconExternal, IconGithub, IconMail } from "../ui/Icons";
-import { Section } from "../ui/Primitives";
+import { IconArrowRight, IconCheck, IconCopy, IconExternal, IconGithub, IconMail } from "../ui/Icons";
+import { AppLink, Section } from "../ui/Primitives";
 import { useToast } from "../ui/Toast";
 
 export function Support() {
@@ -27,6 +27,12 @@ export function Support() {
       eyebrow="Support & Contact"
       title="Get in touch with our support team."
       lede="Need help, have feedback, or found an issue? Get in touch with our support team."
+      aside={
+        <AppLink className="btn btn--secondary btn--sm" href={LINKS.supportPage}>
+          Visit Support Page
+          <IconArrowRight size={12} />
+        </AppLink>
+      }
     >
       <div className="support-grid">
         <article className="card support-card support-card--primary">

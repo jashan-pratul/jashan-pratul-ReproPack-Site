@@ -1,5 +1,6 @@
 import { getPrimaryInstallCta } from "../config/site";
 import { IconArrowRight, IconChrome } from "./ui/Icons";
+import { AppLink } from "./ui/Primitives";
 
 interface StoreButtonProps {
   size?: "sm" | "md" | "lg";
@@ -27,9 +28,9 @@ export function StoreButton({ size = "md", labelOverride }: StoreButtonProps) {
   }
 
   return (
-    <a className={`btn btn--primary ${sizeClass}`} href={cta.href}>
+    <AppLink className={`btn btn--primary ${sizeClass}`} href={cta.href}>
       {label}
       <IconArrowRight size={iconSize - 2} />
-    </a>
+    </AppLink>
   );
 }
