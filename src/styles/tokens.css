@@ -1,0 +1,83 @@
+/* ==========================================================================
+   ReproPack — Precision Dark Design Tokens (v2 Elevation)
+   ========================================================================== */
+
+:root {
+  /* Surface Elevation */
+  --bg-canvas: #08090c;
+  --bg-surface-1: #0e1015;
+  --bg-surface-2: #141720;
+  --bg-surface-3: #1b1f2b;
+  --bg-header: rgba(8, 9, 12, 0.8);
+  --bg-overlay: rgba(4, 5, 8, 0.78);
+
+  /* Borders & Rules */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --border-faint: rgba(255, 255, 255, 0.035);
+  --border-focus: rgba(99, 102, 241, 0.45);
+  --shadow-focus: 0 0 0 1px rgba(99, 102, 241, 0.2);
+
+  /* Accents */
+  --accent-primary: #5e6ad2;
+  --accent-primary-hover: #6a76de;
+  --accent-glow: #818cf8;
+  --accent-soft: rgba(94, 106, 210, 0.12);
+  --accent-ring: rgba(99, 102, 241, 0.45);
+
+  /* Text Hierarchy */
+  --text-primary: #f3f4f6;
+  --text-secondary: #9ca3af;
+  --text-muted: #64748b;
+  --text-on-accent: #ffffff;
+
+  /* Semantic Severity Tokens */
+  --info-fg: #38bdf8;
+  --info-bg: rgba(56, 189, 248, 0.1);
+  --info-border: rgba(56, 189, 248, 0.24);
+  --warn-fg: #fbbf24;
+  --warn-bg: rgba(251, 191, 36, 0.1);
+  --warn-border: rgba(251, 191, 36, 0.24);
+  --error-fg: #f87171;
+  --error-bg: rgba(248, 113, 113, 0.1);
+  --error-border: rgba(248, 113, 113, 0.24);
+  --redacted-fg: #c084fc;
+  --redacted-bg: rgba(192, 132, 252, 0.11);
+  --redacted-border: rgba(192, 132, 252, 0.28);
+  --ok-fg: #4ade80;
+  --ok-bg: rgba(74, 222, 128, 0.09);
+  --ok-border: rgba(74, 222, 128, 0.24);
+
+  /* Dark-Mode Code Editor Syntax Tokens */
+  --syn-key: #a5b4fc;
+  --syn-string: #d1d5db;
+  --syn-number: #fbbf24;
+  --syn-bool: #38bdf8;
+  --syn-null: #64748b;
+  --syn-punct: #4b5563;
+
+  /* Typography */
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --tracking-hero: -0.035em;
+  --tracking-tight: -0.025em;
+  --tracking-body: -0.01em;
+
+  /* Spatial Geometry */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --container: 1220px;
+  --gutter: clamp(16px, 4vw, 36px);
+  --header-h: 60px;
+
+  /* Specular & Elevation */
+  --specular: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+  --specular-btn: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  --shadow-panel: 0 0 0 1px var(--border-subtle), 0 28px 70px -24px rgba(0, 0, 0, 0.85), 0 10px 28px -14px rgba(0, 0, 0, 0.65);
+  --shadow-pop: 0 0 0 1px var(--border-strong), 0 32px 84px -16px rgba(0, 0, 0, 0.9);
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-fast: 110ms;
+  --dur: 170ms;
+}
