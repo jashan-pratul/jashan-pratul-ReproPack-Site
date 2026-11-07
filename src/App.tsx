@@ -16,7 +16,7 @@ import { Support } from "./components/sections/Support";
 import { ToastProvider } from "./components/ui/Toast";
 import { SITE_CONFIG } from "./config/site";
 import { hasModifier, isTypingTarget } from "./lib/keyboard";
-import { useRoute } from "./lib/router";
+import { normalizeRoute, useRoute } from "./lib/router";
 import { PlaygroundProvider } from "./state/playground";
 
 function SiteShell() {
@@ -30,11 +30,34 @@ function SiteShell() {
   }, [route]);
 
   useEffect(() => {
-    if (route !== "/" || !window.location.hash) return;
-    const id = window.location.hash.slice(1);
-    if (!id || id === "top") return;
-    const el = document.getElementById(id);
-    el?.scrollIntoView({ behavior: "auto", block: "start" });
+    if (route !== "/") return;
+
+    const alignToHash = () => {
+      if (!window.location.hash) return;
+      const id = window.location.hash.slice(1);
+      if (!id || id === "top") return;
+      const el = document.getElementById(id);
+      el?.scrollIntoView({ behavior: "instant", block: "start" });
+    };
+
+    alignToHash();
+    const rafId = window.requestAnimationFrame(alignToHash);
+
+    const onPopState = () => {
+      if (normalizeRoute(window.location.pathname) !== "/") return;
+      const id = window.location.hash.slice(1);
+      if (!id || id === "top") {
+        window.scrollTo({ top: 0, behavior: "instant" });
+        return;
+      }
+      document.getElementById(id)?.scrollIntoView({ behavior: "instant", block: "start" });
+    };
+
+    window.addEventListener("popstate", onPopState);
+    return () => {
+      window.cancelAnimationFrame(rafId);
+      window.removeEventListener("popstate", onPopState);
+    };
   }, [route]);
 
   useEffect(() => {

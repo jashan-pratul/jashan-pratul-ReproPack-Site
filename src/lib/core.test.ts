@@ -6,7 +6,7 @@ import { redactValue } from "./redaction";
 import { buildExport, exportFilename } from "./export";
 import { SITE_CONFIG } from "../config/site";
 import { LINKS } from "../config/links";
-import { normalizeRoute, parseInternalHref } from "./router";
+import { normalizeRoute, parseInternalHref, pickActiveSectionId, resolveSectionIdFromHash } from "./router";
 
 describe("pushBounded", () => {
   it("appends while under capacity", () => {
@@ -122,5 +122,23 @@ describe("support configuration & routing", () => {
     expect(parseInternalHref("#install")).toEqual({ path: "/", hash: "#install" });
     expect(parseInternalHref("/#privacy")).toEqual({ path: "/", hash: "#privacy" });
     expect(parseInternalHref("/")).toEqual({ path: "/", hash: "" });
+  });
+
+  it("resolves section hashes and picks active section without multi-section flicker", () => {
+    const sectionIds = ["scope", "playground", "features", "how-it-works", "redaction", "privacy", "install", "faq", "support"];
+    const observedIds = ["top", ...sectionIds];
+
+    expect(resolveSectionIdFromHash("", sectionIds)).toBeNull();
+    expect(resolveSectionIdFromHash("#top", sectionIds)).toBeNull();
+    expect(resolveSectionIdFromHash("#unknown", sectionIds)).toBeNull();
+    expect(resolveSectionIdFromHash("#scope", sectionIds)).toBe("scope");
+    expect(resolveSectionIdFromHash("#how-it-works", sectionIds)).toBe("how-it-works");
+    expect(resolveSectionIdFromHash("#faq", sectionIds)).toBe("faq");
+
+    expect(pickActiveSectionId(observedIds, new Set(["top"]))).toBeNull();
+    expect(pickActiveSectionId(observedIds, new Set(["top", "scope"]))).toBeNull();
+    expect(pickActiveSectionId(observedIds, new Set(["scope", "playground"]))).toBe("scope");
+    expect(pickActiveSectionId(observedIds, new Set(["playground"]))).toBe("playground");
+    expect(pickActiveSectionId(observedIds, new Set(["faq", "support"]))).toBe("faq");
   });
 });
