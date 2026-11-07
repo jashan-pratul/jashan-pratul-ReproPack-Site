@@ -1,15 +1,13 @@
 import { isStoreLive, NAV_ITEMS, SITE_CONFIG } from "../config/site";
 import { LINKS } from "../config/links";
-import { IconCommit, IconExternal, IconGithub } from "./ui/Icons";
-import { Crosshairs } from "./ui/Primitives";
+import { IconCommit, IconExternal, IconGithub, IconMail } from "./ui/Icons";
 
 export function Footer({ onOpenShortcuts }: { onOpenShortcuts: () => void }) {
   const storeLive = isStoreLive();
 
   return (
     <footer className="footer" aria-label="Site footer">
-      <div className="container rails footer__container">
-        <Crosshairs />
+      <div className="container footer__container">
         <div className="footer__grid">
           <div className="footer__brand-col">
             <a href="#top" className="footer__brand" aria-label="ReproPack top of page">
@@ -23,6 +21,14 @@ export function Footer({ onOpenShortcuts }: { onOpenShortcuts: () => void }) {
               Local-first browser diagnostic event recorder. Bounded {SITE_CONFIG.bufferMaxEvents}-event FIFO session buffer, best-effort
               heuristic redaction, structured JSON export.
             </p>
+            <a
+              className="footer__support-email mono"
+              href={LINKS.supportMailto}
+              aria-label={`Email ReproPack support at ${LINKS.supportEmail}`}
+            >
+              <IconMail size={13} />
+              <span>{LINKS.supportEmail}</span>
+            </a>
             <div className="footer__telemetry mono" aria-label="System metadata">
               <span className="badge">
                 <IconCommit size={11} /> build :: v1.0.0-local
@@ -52,9 +58,15 @@ export function Footer({ onOpenShortcuts }: { onOpenShortcuts: () => void }) {
             </ul>
           </nav>
 
-          <nav className="footer__col" aria-label="External resources">
-            <h3 className="footer__heading mono">Resources</h3>
+          <nav className="footer__col" aria-label="Support and external resources">
+            <h3 className="footer__heading mono">Resources & Support</h3>
             <ul>
+              <li>
+                <a href={LINKS.supportMailto} aria-label={`Contact support via email at ${LINKS.supportEmail}`}>
+                  <IconMail size={13} />
+                  {LINKS.supportEmail}
+                </a>
+              </li>
               <li>
                 <a href={LINKS.github} target="_blank" rel="noopener noreferrer">
                   <IconGithub size={13} />
@@ -88,9 +100,17 @@ export function Footer({ onOpenShortcuts }: { onOpenShortcuts: () => void }) {
           <span>
             {SITE_CONFIG.name} :: Local-first developer diagnostics · Explicit instrumentation only
           </span>
-          <a className="text-link" href={LINKS.github} target="_blank" rel="noopener noreferrer">
-            github.com/jashan-pratul/ReproPack
-          </a>
+          <div className="footer__bottom-links">
+            <a className="text-link" href={LINKS.supportMailto} aria-label={`Support email ${LINKS.supportEmail}`}>
+              {LINKS.supportEmail}
+            </a>
+            <span className="footer__bottom-sep" aria-hidden="true">
+              ·
+            </span>
+            <a className="text-link" href={LINKS.github} target="_blank" rel="noopener noreferrer">
+              github.com/jashan-pratul/ReproPack
+            </a>
+          </div>
         </div>
       </div>
     </footer>

@@ -10,6 +10,7 @@ import {
   IconExternal,
   IconGithub,
   IconKeyboard,
+  IconMail,
   IconSearch,
   IconShield,
   IconTrash,
@@ -150,6 +151,15 @@ export function CommandPalette({
         hint: "Issues",
         run: () => openUrl(LINKS.support),
       },
+      {
+        id: "ext-email-support",
+        group: "External Links",
+        label: "Email ReproPack Support",
+        hint: LINKS.supportEmail,
+        run: () => {
+          window.location.href = LINKS.supportMailto;
+        },
+      },
     ];
   }, [pg, onOpenShortcuts]);
 
@@ -204,6 +214,7 @@ export function CommandPalette({
     if (c.id === "clear-buffer") return <IconTrash size={14} />;
     if (c.id === "show-shortcuts") return <IconKeyboard size={14} />;
     if (c.id === "focus-demo-search") return <IconSearch size={14} />;
+    if (c.id === "ext-email-support") return <IconMail size={14} />;
     if (c.group === "External Links") return c.id === "ext-github" ? <IconGithub size={14} /> : <IconExternal size={14} />;
     return <IconArrowRight size={14} />;
   };

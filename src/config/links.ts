@@ -9,6 +9,8 @@ export const CHROME_WEB_STORE_URL = SITE_CONFIG.chromeWebStoreUrl;
 export const DOCS_URL = SITE_CONFIG.docsUrl;
 export const PRIVACY_POLICY_URL = SITE_CONFIG.privacyPolicyUrl;
 export const SUPPORT_URL = SITE_CONFIG.supportUrl;
+export const SUPPORT_EMAIL = SITE_CONFIG.supportEmail;
+export const SUPPORT_MAILTO = `mailto:${SUPPORT_EMAIL}`;
 
 /** Derived repository links. */
 export const GITHUB_RELEASES_URL = `${GITHUB_URL}/releases`;
@@ -24,6 +26,8 @@ export const LINKS = {
   docs: DOCS_URL,
   privacy: PRIVACY_POLICY_URL,
   support: SUPPORT_URL,
+  supportEmail: SUPPORT_EMAIL,
+  supportMailto: SUPPORT_MAILTO,
   newIssue: GITHUB_NEW_ISSUE_URL,
   primaryInstall: PRIMARY_INSTALL_URL,
 } as const;

@@ -27,21 +27,6 @@ export function Keys({ keys }: { keys: string[] }) {
   );
 }
 
-export function Crosshairs({ bottom = false }: { bottom?: boolean }) {
-  return (
-    <>
-      <span className="cross cross--tl" aria-hidden="true" />
-      <span className="cross cross--tr" aria-hidden="true" />
-      {bottom && (
-        <>
-          <span className="cross cross--bl" aria-hidden="true" />
-          <span className="cross cross--br" aria-hidden="true" />
-        </>
-      )}
-    </>
-  );
-}
-
 interface SectionProps {
   id: string;
   index?: string;
@@ -57,8 +42,7 @@ export function Section({ id, index, eyebrow, title, lede, aside, children, clas
   const headingId = `${id}-title`;
   return (
     <section id={id} className={`section ${className ?? ""}`} aria-labelledby={title ? headingId : undefined}>
-      <div className="container rails">
-        <Crosshairs />
+      <div className="container">
         <div className="section__inner">
           {(eyebrow || title) && (
             <header className={`section-head ${aside ? "section-head--split" : ""}`}>

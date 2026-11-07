@@ -33,6 +33,7 @@ export const SITE_CONFIG = {
   docsUrl: "https://github.com/jashan-pratul/ReproPack#readme",
   privacyPolicyUrl: "https://github.com/jashan-pratul/ReproPack/blob/main/PRIVACY.md",
   supportUrl: "https://github.com/jashan-pratul/ReproPack/issues",
+  supportEmail: "repropacksupport@gmail.com",
   /** Maximum number of events retained in a single session buffer. */
   bufferMaxEvents: 500,
 } as const;
@@ -46,6 +47,7 @@ export const NAV_ITEMS = [
   { id: "privacy", label: "Privacy" },
   { id: "install", label: "Install" },
   { id: "faq", label: "FAQ" },
+  { id: "support", label: "Support" },
 ] as const;
 
 /**

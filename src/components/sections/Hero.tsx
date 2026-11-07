@@ -3,7 +3,6 @@ import { SITE_CONFIG } from "../../config/site";
 import { LINKS } from "../../config/links";
 import { StoreButton } from "../StoreButton";
 import { IconArrowRight, IconGithub, IconLock, IconShield } from "../ui/Icons";
-import { Crosshairs } from "../ui/Primitives";
 
 interface HeroTraceRow {
   id: string;
@@ -93,8 +92,7 @@ export function Hero() {
 
   return (
     <section id="top" className="hero" aria-labelledby="hero-title">
-      <div className="container rails">
-        <Crosshairs bottom />
+      <div className="container">
         <div className="hero__inner">
           <div className="hero__copy">
             <div className="hero__eyebrow mono">[ RECORDER :: LOCAL-FIRST :: ZERO-CLOUD ]</div>

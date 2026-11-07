@@ -11,6 +11,7 @@ import { PlaygroundSection } from "./components/sections/PlaygroundSection";
 import { Privacy } from "./components/sections/Privacy";
 import { RedactionLab } from "./components/sections/RedactionLab";
 import { Scope } from "./components/sections/Scope";
+import { Support } from "./components/sections/Support";
 import { ToastProvider } from "./components/ui/Toast";
 import { hasModifier, isTypingTarget } from "./lib/keyboard";
 import { PlaygroundProvider } from "./state/playground";
@@ -85,6 +86,7 @@ function SiteShell() {
         <Privacy />
         <Install />
         <Faq />
+        <Support />
       </main>
 
       <Footer onOpenShortcuts={() => setShortcutsOpen(true)} />

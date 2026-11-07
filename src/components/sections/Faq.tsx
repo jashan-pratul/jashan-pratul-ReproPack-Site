@@ -107,7 +107,7 @@ const ITEMS: FaqItem[] = [
   },
   {
     id: "source-and-support",
-    question: "Where can I inspect the source code, privacy policy, or report issues?",
+    question: "Where can I inspect the source code, privacy policy, or contact support?",
     answer: (
       <>
         Source code and documentation live at{" "}
@@ -118,9 +118,13 @@ const ITEMS: FaqItem[] = [
         <a className="text-link" href={LINKS.privacy} target="_blank" rel="noopener noreferrer">
           PRIVACY.md
         </a>
-        , and bug reports are tracked via{" "}
+        , bug reports are tracked via{" "}
         <a className="text-link" href={LINKS.support} target="_blank" rel="noopener noreferrer">
           GitHub Issues
+        </a>
+        , and direct support is available by email at{" "}
+        <a className="text-link" href={LINKS.supportMailto}>
+          {LINKS.supportEmail}
         </a>
         .
       </>

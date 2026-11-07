@@ -4,6 +4,8 @@ import { DEFAULT_FILTER, filterItems, parseQuery, type FilterState, type Searcha
 import { createSeedEvents, generateEvent, mulberry32 } from "./events";
 import { redactValue } from "./redaction";
 import { buildExport, exportFilename } from "./export";
+import { SITE_CONFIG } from "../config/site";
+import { LINKS } from "../config/links";
 
 describe("pushBounded", () => {
   it("appends while under capacity", () => {
@@ -95,5 +97,13 @@ describe("buildExport", () => {
     expect(doc.redaction.findingsCount).toBeGreaterThan(0);
     expect(JSON.stringify(doc)).not.toContain("hunter2");
     expect(exportFilename("ses_test", 0)).toBe("repropack-ses_test-1970-01-01T00-00-00Z.json");
+  });
+});
+
+describe("support configuration", () => {
+  it("exposes official support email and mailto link", () => {
+    expect(SITE_CONFIG.supportEmail).toBe("repropacksupport@gmail.com");
+    expect(LINKS.supportEmail).toBe("repropacksupport@gmail.com");
+    expect(LINKS.supportMailto).toBe("mailto:repropacksupport@gmail.com");
   });
 });
